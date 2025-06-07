@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kittiya Kuldee - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fefefe;
+            overflow-x: hidden;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+            opacity: 0.7;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.3s forwards;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.6s forwards;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.9s forwards;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+        
+        .about-section {
+            background: #f8fafc;
+            padding: 5rem 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #2d3748;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-placeholder {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #87CEEB, #98FB98);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-placeholder::before {
+            content: '☁️';
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+        
+        .experience-section {
+            padding: 5rem 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 1rem 2rem;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: #667eea;
+            border: 4px solid white;
+            top: 2rem;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid #f7fafc;
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .timeline-content p {
+            color: #718096;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .timeline-date {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .education-section {
+            background: #f8fafc;
+            padding: 5rem 0;
+        }
+        
+        .education-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .education-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .education-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .education-card h4 {
+            font-size: 1.1rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .education-card p {
+            color: #718096;
+            line-height: 1.6;
+        }
+        
+        .skills-section {
+            padding: 5rem 0;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .skills-category h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skill-name {
+            font-weight: 500;
+            color: #2d3748;
+        }
+        
+        .skill-level {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .skill-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+        
+        .skill-dot.filled {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+        
+        .awards-section {
+            background: #f8fafc;
+            padding: 5rem 0;
+        }
+        
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .award-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .award-card::before {
+            content: '🏆';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 3rem;
+            opacity: 0.1;
+        }
+        
+        .award-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        
+        .award-card p {
+            color: #718096;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .contact-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+        
+        .contact-item p {
+            color: #718096;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating-nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .image-placeholder {
+                width: 200px;
+                height: 200px;
+                font-size: 3rem;
+            }
+            
+            .timeline::after {
+                left: 2rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0;
+                padding-left: 4rem;
+            }
+            
+            .timeline-item::after {
+                left: 1rem;
+            }
+            
+            .right::after {
+                left: 1rem;
+            }
+            
+            .awards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-nav">
+        <div class="nav-dot active" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" onclick="scrollToSection('about')"></div>
+        <div class="nav-dot" onclick="scrollToSection('experience')"></div>
+        <div class="nav-dot" onclick="scrollToSection('education')"></div>
+        <div class="nav-dot" onclick="scrollToSection('skills')"></div>
+        <div class="nav-dot" onclick="scrollToSection('awards')"></div>
+        <div class="nav-dot" onclick="scrollToSection('contact')"></div>
+    </div>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Kittiya Kuldee</h1>
+            <p>Programming & Robotics Instructor • Web Developer • Creative Problem Solver</p>
+            <a href="#about" class="cta-button">Explore My Journey</a>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>A dedicated programming tutor with extensive experience teaching robotics, Python, and circuit building to students of various ages. Proficient in designing engaging, hands-on lessons that foster problem-solving skills and creativity.</p>
+                <p>I am a motivated and responsible individual with a strong willingness to learn and grow, committed to continuous self-improvement. I aim to leverage my skills to contribute meaningfully to innovative educational initiatives and to the success of any organization I join.</p>
+            </div>
+            <div class="about-image">
+                <div class="image-placeholder">🌱</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience-section" id="experience">
+        <div class="section">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - Present</div>
+                        <h3>Current Private Tutor at Logiscool</h3>
+                        <h4>Logiscool</h4>
+                        <p>Teaching programming, robotics, Python, video editing, and secondary students, focusing on hands-on problem-solving skills. I strive to inspire creativity and confidence in using technology through engaging and practical lessons.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025</div>
+                        <h3>Curriculum Website Designer</h3>
+                        <h4>EIL Program – Chulalongkorn University</h4>
+                        <p>Designed and developed the official curriculum website for the EIL (English as an International Language) Program. Collaborated with faculty to organize academic content into an accessible and modern online format.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024</div>
+                        <h3>Head of Practicum Team</h3>
+                        <h4>Patumwan Demonstration School</h4>
+                        <p>Led a student-teacher team during a full-semester practicum. Coordinated lesson planning, liaised with mentor teachers, and facilitated group collaboration. Strengthened leadership and classroom management skills.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - 2022</div>
+                        <h3>Short-Term Teaching Practicum</h3>
+                        <h4>Chulalongkorn University Demonstration Secondary School</h4>
+                        <p>Participated in a one-week practicum observing and assisting secondary-level English classrooms. Gained insights into learner behavior, teaching strategies, and classroom culture.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - 2022</div>
+                        <h3>Teaching Assistant</h3>
+                        <h4>Tree Learning Institute</h4>
+                        <p>Supported a university professor in preparing lesson plans, organizing class materials, and assisting students in one-on-one and small group tutoring sessions. Improved communication and time management skills through real teaching tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="education-section" id="education">
+        <div class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="education-content">
+                <div class="education-card">
+                    <h3>Chulalongkorn University</h3>
+                    <h4>Computer Education</h4>
+                    <p>Second class honors, GPAX 3.47</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-section" id="skills">
+        <div class="section">
+            <h2 class="section-title">Skills & Languages</h2>
+            <div class="skills-grid">
+                <div class="skills-category">
+                    <h3>Technical Skills</h3>
+                    <div class="skill-item">
+                        <span class="skill-name">Programming</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Robotics Design</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Circuit Design</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Web Design</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot"></div>
+                            <div class="skill-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Graphic Design</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot"></div>
+                            <div class="skill-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Video Editing</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot"></div>
+                            <div class="skill-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <h3>Languages</h3>
+                    <div class="skill-item">
+                        <span class="skill-name">Thai</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">English</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Chinese</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot"></div>
+                            <div class="skill-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <span class="skill-name">Arab</span>
+                        <div class="skill-level">
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot filled"></div>
+                            <div class="skill-dot"></div>
+                            <div class="skill-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="awards-section" id="awards">
+        <div class="section">
+            <h2 class="section-title">Awards & Recognition</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <h3>Outstanding Student Teacher Award</h3>
+                    <p>Computer Education Program Chulalongkorn University (2024)</p>
+                </div>
+                <div class="award-card">
+                    <h3>Consolation Prize, "Sandpaper Teacher" Award</h3>
+                    <p>Recognizing resilience and dedication in teaching (2024)</p>
+                </div>
+                <div class="award-card">
+                    <h3>Bhumibol Scholarship Recipient</h3>
+                    <p>Chulalongkorn University (2023)</p>
+                </div>
+                <div class="award-card">
+                    <h3>Consolation Prize</h3>
+                    <p>3rd Marine Resource Conservation Innovation Contest, PTTEP Teenergy Year 9 (2023)</p>
+                </div>
+                <div class="award-card">
+                    <h3>National Science and Technology Fair 2022</h3>
+                    <p>EZRA: Pharmacy Chatbot Application as a Semi-finalist</p>
+                </div>
+                <div class="award-card">
+                    <h3>National Software Contest Thailand 2022</h3>
+                    <p>Chapo: an innovative application designed to support programming education as a Semi-finalist</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <p>kitty.kuldee5@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <h3>Phone</h3>
+                <p>098-724-8288</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <h3>Location</h3>
+                <p>Bang Rak District, Bangkok 10500</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+            
+            // Update active nav dot
+            document.querySelectorAll('.nav-dot').forEach(dot => dot.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        // Smooth scrolling for CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Update nav dots on scroll
+        window.addEventListener('scroll', function() {
+            const sections = ['hero', 'about', 'experience', 'education', 'skills', 'awards', 'contact'];
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach((section, index) => {
+                const element = document.getElementById(section);
+                if (element.offsetTop <= scrollPos && element.offsetTop + element.offsetHeight > scrollPos) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => dot.classList.remove('active'));
+                    document.querySelectorAll('.nav-dot')[index].classList.add('active');
+                }
+            });
+        });
+        
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe timeline items
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'all 0.6s ease';
+            observer.observe(item);
+        });
+        
+        // Observe award cards
+        document.querySelectorAll('.award-car

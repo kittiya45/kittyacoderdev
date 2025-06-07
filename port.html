@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kittiya Kuldee - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Kanit', sans-serif;
+            line-height: 1.6;
+            color: #5d4e37;
+            background: #faf8f4;
+            overflow-x: hidden;
+            font-size: 14px;
+        }
+        
+        .language-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background: rgba(139, 119, 101, 0.9);
+            border-radius: 25px;
+            padding: 0.3rem 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .language-toggle button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .language-toggle button.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .language-toggle button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8b7765 0%, #a0956b 100%);
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="80" fill="url(%23a)"/><circle cx="800" cy="300" r="120" fill="url(%23a)"/><circle cx="400" cy="700" r="100" fill="url(%23a)"/></svg>');
+            opacity: 0.6;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 0 1.5rem;
+        }
+        
+        .hero h1 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.3s forwards;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.6s forwards;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.9s forwards;
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            padding: 3rem 0;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Kanit', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #6b5b4b;
+        }
+        
+        .about-section {
+            background: #f5f2ed;
+            padding: 3rem 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .about-text h2 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #6b5b4b;
+        }
+        
+        .about-text p {
+            font-size: 0.95rem;
+            color: #5d4e37;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+        
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-placeholder {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, #a0956b, #8b7765);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 15px 40px rgba(139, 119, 101, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-placeholder::before {
+            content: '🌿';
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .experience-section {
+            padding: 3rem 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(180deg, #8b7765, #a0956b);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        
+        .timeline-item {
+            padding: 0.8rem 1.5rem;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background: #8b7765;
+            border: 3px solid white;
+            top: 1.5rem;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 2px #8b7765;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -8px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid #f5f2ed;
+        }
+        
+        .timeline-content h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #6b5b4b;
+            margin-bottom: 0.4rem;
+        }
+        
+        .timeline-content h4 {
+            font-size: 0.95rem;
+            color: #8b7765;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .timeline-content p {
+            color: #5d4e37;
+            line-height: 1.6;
+            font-size: 0.85rem;
+        }
+        
+        .timeline-date {
+            background: linear-gradient(45deg, #8b7765, #a0956b);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        
+        .education-section {
+            background: #f5f2ed;
+            padding: 3rem 0;
+        }
+        
+        .education-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .education-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .education-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #8b7765, #a0956b);
+        }
+        
+        .education-card h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6b5b4b;
+            margin-bottom: 0.4rem;
+        }
+        
+        .education-card h4 {
+            font-size: 0.95rem;
+            color: #8b7765;
+            margin-bottom: 0.8rem;
+        }
+        
+        .education-card p {
+            color: #5d4e37;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .skills-section {
+            padding: 3rem 0;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .skills-category h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6b5b4b;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skill-name {
+            font-weight: 500;
+            color: #5d4e37;
+            font-size: 0.9rem;
+        }
+        
+        .skill-level {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .skill-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d7d0c7;
+        }
+        
+        .skill-dot.filled {
+            background: linear-gradient(45deg, #8b7765, #a0956b);
+        }
+        
+        .awards-section {
+            background: #f5f2ed;
+            padding: 3rem 0;
+        }
+        
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .award-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .award-card::before {
+            content: '🏆';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 2.5rem;
+            opacity: 0.1;
+        }
+        
+        .award-card h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b5b4b;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+        
+        .award-card p {
+            color: #5d4e37;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .contact-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .contact-item h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #6b5b4b;
+        }
+        
+        .contact-item p {
+            color: #5d4e37;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .floating-nav {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+            }
+            
+            .hero {
+                min-height: 70vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .image-placeholder {
+                width: 180px;
+                height: 180px;
+                font-size: 2.5rem;
+            }
+            
+            .timeline::after {
+                left: 1.5rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0;
+                padding-left: 3rem;
+            }
+            
+            .timeline-item::after {
+                left: 0.8rem;
+            }
+            
+            .right::after {
+                left: 0.8rem;
+            }
+            
+            .awards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-toggle">
+        <button onclick="switchLanguage('en')" class="active" id="en-btn">EN</button>
+        <button onclick="switchLanguage('th')" id="th-btn">TH</button>
+    </div>
+
+    <div class="floating-nav">
+        <div class="nav-dot active" onclick="scrollToSection('hero')"></div>
+        <div class="nav-dot" onclick="scrollToSection('about')"></div>
+        <div class="nav-dot" onclick="scrollToSection('experience')"></div>
+        <div class="nav-dot" onclick="scrollToSection('education')"></div>
+        <div class="nav-dot" onclick="scrollToSection('skills')"></div>
+        <div class="nav-dot" onclick="scrollToSection('awards')"></div>
+        <div class="nav-dot" onclick="scrollToSection('contact')"></div>
+    </div>
+
+    <!-- English Content -->
+    <div id="content-en">
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <h1>Kittiya Kuldee</h1>
+                <p>Programming & Robotics Instructor • Web Developer • Creative Problem Solver</p>
+                <a href="#about" class="cta-button">Explore My Journey</a>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>A dedicated programming tutor with extensive experience teaching robotics, Python, and circuit building to students of various ages. Proficient in designing engaging, hands-on lessons that foster problem-solving skills and creativity.</p>
+                    <p>I am a motivated and responsible individual with a strong willingness to learn and grow, committed to continuous self-improvement. I aim to leverage my skills to contribute meaningfully to innovative educational initiatives and to the success of any organization I join.</p>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">🌱</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="experience-section" id="experience">
+            <div class="section">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023 - Present</div>
+                            <h3>Current Private Tutor at Logiscool</h3>
+                            <h4>Logiscool</h4>
+                            <p>Teaching programming, robotics, Python, video editing, and secondary students, focusing on hands-on problem-solving skills. I strive to inspire creativity and confidence in using technology through engaging and practical lessons.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2025</div>
+                            <h3>Curriculum Website Designer</h3>
+                            <h4>EIL Program – Chulalongkorn University</h4>
+                            <p>Designed and developed the official curriculum website for the EIL (English as an International Language) Program. Collaborated with faculty to organize academic content into an accessible and modern online format.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024</div>
+                            <h3>Head of Practicum Team</h3>
+                            <h4>Patumwan Demonstration School</h4>
+                            <p>Led a student-teacher team during a full-semester practicum. Coordinated lesson planning, liaised with mentor teachers, and facilitated group collaboration. Strengthened leadership and classroom management skills.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021 - 2022</div>
+                            <h3>Short-Term Teaching Practicum</h3>
+                            <h4>Chulalongkorn University Demonstration Secondary School</h4>
+                            <p>Participated in a one-week practicum observing and assisting secondary-level English classrooms. Gained insights into learner behavior, teaching strategies, and classroom culture.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021 - 2022</div>
+                            <h3>Teaching Assistant</h3>
+                            <h4>Tree Learning Institute</h4>
+                            <p>Supported a university professor in preparing lesson plans, organizing class materials, and assisting students in one-on-one and small group tutoring sessions. Improved communication and time management skills through real teaching tasks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="education-section" id="education">
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-content">
+                    <div class="education-card">
+                        <h3>Chulalongkorn University</h3>
+                        <h4>Computer Education</h4>
+                        <p>Second class honors, GPAX 3.47</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section" id="skills">
+            <div class="section">
+                <h2 class="section-title">Skills & Languages</h2>
+                <div class="skills-grid">
+                    <div class="skills-category">
+                        <h3>Technical Skills</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Programming</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Robotics Design</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Circuit Design</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Web Design</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Graphic Design</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Video Editing</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Languages</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Thai</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">English</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Chinese</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Arabic</span>
+                            <div class="skill-level">
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot filled"></div>
+                                <div class="skill-dot"></div>
+                                <div class="skill-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="awards-section" id="awards">
+            <div class="section">
+                <h2 class="section-title">Awards & Recognition</h2>
+                <div class="awards-grid">
+                    <div class="award-card">
+                        <h3>Outstanding Student Teacher Award</h3>
+                        <p>Computer Education Program Chulalongkorn University (2024)</p>
+                    </div>
+                    <div class="award-card">
+                        <h3>Consolation Prize, "Sandpaper Teacher" Award</h3>
+                        <p>Recognizing resilience and dedication in teaching (2024)</p>
+                    </div>
+                    <div class="award-card">
+                        <h3>Bhumibol Scholarship Recipient</h3>
+                        <p>Chulalongkorn University (2023)</p>
+                    </div>
+                    <div class="award-card">
+                        <h3>Consolation Prize</h3>
+                        <p>3rd Marine Resource Conservation Innovation Contest,
